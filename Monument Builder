@@ -1,0 +1,60 @@
+import tkinter as tk
+
+sizes = {
+    "Georgia Grey": {
+    "Size 1": {"dimensions": "18X06X18 inches base is 26X12X06 inches", "cost": 1500},
+    "Size 2": {"dimensions": "24X06X20 inches base is 36X12X03 inches", "cost": 1800},
+    "Size 3": {"dimensions": "36X06X20 inches base is 48X12X06 inches", "cost": 2990},
+    "Size 4": {"dimensions": "42X06X22 inches base is 54X12X06 inches", "cost": 3300}
+    },
+    "Bahama Blue": {
+    "Size 1": {"dimensions": "18X06X18 inches base is 26X12X06 inches", "cost": 1900},
+    "Size 2": {"dimensions": "24X06X20 inches base is 36X12X03 inches", "cost": 2200},
+    "Size 3": {"dimensions": "36X06X20 inches base is 48X12X06 inches", "cost": 3390},
+    "Size 4": {"dimensions": "42X06X22 inches base is 54X12X06 inches", "cost": 3800}
+    },
+    "Jet Black": {
+    "Size 1": {"dimensions": "18X06X18 inches base is 26X12X06 inches", "cost": 1900},
+    "Size 2": {"dimensions": "24X06X20 inches base is 36X12X03 inches", "cost": 2200},
+    "Size 3": {"dimensions": "36X06X20 inches base is 48X12X06 inches", "cost": 3390},
+    "Size 4": {"dimensions": "42X06X22 inches base is 54X12X06 inches", "cost": 3800}
+    }
+    }
+
+sales_tax_rate = 0.07
+
+
+def calculate_total_cost():
+    selected_stone = stone_var.get()
+    selected_size = size_var.get()
+    stone_cost = sizes[selected_stone][selected_size]["cost"]
+    sales_tax = stone_cost * sales_tax_rate
+    total_cost = stone_cost + sales_tax
+    result_label["text"] = "Selected stone: {}\nSelected size: {}\nTotal cost: ${:.2f}".format(selected_stone, selected_size, total_cost)
+    
+    root = tk.Tk()
+    root.title("Monument Builder")
+    
+    stone_label = tk.Label(root, text="Select a type of stone:")
+    stone_label.pack()
+
+    stone_var = tk.StringVar(root)
+    stone_var.set("Georgia Grey")
+    stone_dropdown = tk.OptionMenu(root, stone_var, *sizes.keys())
+    stone_dropdown.pack()
+
+    size_label = tk.Label(root, text="Select a size:")
+    size_label.pack()
+
+    size_var = tk.StringVar(root)
+    size_var.set("Size 1")
+    size_dropdown = tk.OptionMenu(root, size_var, *sizes["Georgia Grey"].keys())
+    size_dropdown.pack()
+
+    calculate_button = tk.Button(root, text="Calculate total cost", command=calculate_total_cost)
+    calculate_button.pack()
+
+    result_label = tk.Label(root, text="")
+    result_label.pack()
+
+    root.mainloop()
